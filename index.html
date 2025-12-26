@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garden Woods Resort</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2F5D50', // Forest Green
+                        secondary: '#F5F0E6', // Sand Beige
+                        accent: '#C8A951', // Gold / Warm Brown
+                        dark: '#333333', // Dark Charcoal
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    animation: {
+                        'fade-up': 'fadeInUp 1s ease-out forwards',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Magical Fireflies Splash Screen (Animated Background) */
+        #splash-screen {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(-45deg, #2F5D50, #1a1a1a, #000000, #2F5D50);
+            background-size: 400% 400%;
+            animation: gradientMoveSide 15s ease infinite; /* Animated Background */
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: transform 1s ease-in-out;
+            transform: translateY(0);
+        }
+        
+        @keyframes gradientMoveSide {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        #splash-screen.slide-up {
+            transform: translateY(-100%);
+        }
+
+        /* Vignette */
+        #splash-screen::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.8) 100%);
+            pointer-events: none;
+        }
+
+        /* Firefly Particles */
+        .firefly {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: #C8A951;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #C8A951, 0 0 20px #C8A951;
+            opacity: 0;
+            animation: moveFirefly 10s linear infinite, twinkleFirefly 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes moveFirefly {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(100px, -100px); }
+        }
+
+        @keyframes twinkleFirefly {
+            0% { opacity: 0; scale: 0.8; }
+            50% { opacity: 1; scale: 1.2; }
+            100% { opacity: 0; scale: 0.8; }
+        }
+
+        /* Cinematic Title */
+        .splash-title-container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .splash-char {
+            display: inline-block;
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem; 
+            color: #C8A951;
+            font-weight: 700;
+            opacity: 0;
+            filter: blur(10px);
+            transform: scale(0.8);
+            text-shadow: 0 0 10px rgba(200, 169, 81, 0.5), 0 0 20px rgba(200, 169, 81, 0.3);
+            animation: revealChar 0.5s ease-out forwards;
+        }
+
+        /* Mobile Font Fix */
+        @media (max-width: 768px) {
+            .splash-char {
+                font-size: 2rem;
+            }
+        }
+
+        @keyframes revealChar {
+            to {
+                opacity: 1;
+                filter: blur(0);
+                transform: scale(1);
+            }
+        }
+
+        /* Hero: Campfire Scene */
+        .hero-campfire {
+            background: linear-gradient(to bottom, #2F5D50 0%, #1a332d 60%, #000000 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .fire-glow {
+            position: absolute;
+            bottom: -10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60vw;
+            height: 40vw;
+            background: radial-gradient(circle, rgba(200, 169, 81, 0.4) 0%, rgba(255, 140, 0, 0.2) 40%, transparent 70%);
+            filter: blur(50px);
+            animation: firePulse 4s ease-in-out infinite alternate;
+            z-index: 1;
+        }
+
+        @keyframes firePulse {
+            0% { opacity: 0.6; transform: translateX(-50%) scale(0.9); }
+            100% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+        }
+
+        .ember {
+            position: absolute;
+            bottom: 0;
+            background: #C8A951;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #ff8c00;
+            opacity: 0;
+            animation: riseEmber 6s linear infinite;
+        }
+
+        @keyframes riseEmber {
+            0% { opacity: 1; bottom: 5%; transform: translateX(0) scale(1); }
+            50% { opacity: 0.8; transform: translateX(20px) scale(0.8); }
+            100% { opacity: 0; bottom: 80%; transform: translateX(-20px) scale(0); }
+        }
+        /* Ken Burns effect */
+        @keyframes kenBurns {
+            0% { transform: scale(1) translate(0, 0); }
+            50% { transform: scale(1.1) translate(-1%, -1%); }
+            100% { transform: scale(1) translate(0, 0); }
+        }
+        .animate-ken-burns {
+            animation: kenBurns 20s ease-out infinite alternate;
+        }
+        
+        /* Slow Zoom for CTA */
+        @keyframes slowZoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.15); }
+        }
+        .animate-slow-zoom {
+            animation: slowZoom 25s ease-in-out infinite alternate;
+        }
+
+        /* Text Entrance Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fade-up {
+            opacity: 0; /* Start hidden */
+            animation: fadeInUp 1.2s ease-out forwards;
+        }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-500 { animation-delay: 0.5s; }
+        .delay-800 { animation-delay: 0.8s; }
+
+        /* Option 2: Calm Breathe Animation for Body */
+        @keyframes breathe {
+            0%, 100% { background-color: #F5F0E6; }
+            50% { background-color: #EFE6D5; }
+        }
+        .animate-breathe {
+            animation: breathe 10s ease-in-out infinite;
+        }
+
+        /* Option 1: Deep Forest Gradient for Footer/Dark Sections */
+        .bg-deep-forest {
+            background: linear-gradient(-45deg, #2F5D50, #333333, #2F5D50, #453a23); /* Using a dark gold hint */
+            background-size: 400% 400%;
+            animation: gradientMove 15s ease infinite;
+        }
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body class="font-sans antialiased flex flex-col min-h-screen animate-breathe text-dark">
+
+    <!-- Magical Night Forest Splash Screen -->
+    <div id="splash-screen">
+        <div id="fireflies-container" class="absolute inset-0 w-full h-full pointer-events-none"></div>
+        <div class="splash-title-container">
+            <h1 id="splash-title" class="text-4xl md:text-7xl tracking-widest uppercase">
+                <!-- Text injected by JS -->
+            </h1>
+        </div>
+    </div>
+
+    <!-- Ambient Interactive Background -->
+    <div id="ambient-background" class="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
+        <!-- Interactive Cursor Glow -->
+        <div id="cursor-glow" class="absolute w-[800px] h-[800px] bg-primary/10 rounded-full blur-[120px] transition-transform duration-100 ease-out -translate-x-1/2 -translate-y-1/2 will-change-transform top-0 left-0 hidden md:block"></div>
+        
+        <!-- Static Fog Layers for "Clouding" Atmosphere -->
+        <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/5 rounded-full blur-[150px] animate-pulse"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[60%] bg-accent/5 rounded-full blur-[120px] animate-pulse delay-1000"></div>
+    </div>
+
+    <!-- Navbar -->
+    <header class="bg-primary text-secondary shadow-md fixed w-full top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="font-serif text-2xl font-bold tracking-widest text-accent">GARDEN WOODS</a>
+            
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+
+            <!-- Desktop Menu -->
+            <ul class="hidden md:flex space-x-8 text-sm uppercase tracking-wide font-medium">
+                <li><a href="index.html" class="hover:text-accent transition duration-300">Home</a></li>
+                <li><a href="about.html" class="hover:text-accent transition duration-300">About</a></li>
+                <li><a href="rooms.html" class="hover:text-accent transition duration-300">Rooms</a></li>
+                <li><a href="facilities.html" class="hover:text-accent transition duration-300">Facilities</a></li>
+                <li><a href="gallery.html" class="hover:text-accent transition duration-300">Gallery</a></li>
+                <li><a href="payments.html" class="hover:text-accent transition duration-300">Payments</a></li>
+                <li><a href="contact.html" class="hover:text-accent transition duration-300">Contact</a></li>
+            </ul>
+        </nav>
+        
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-primary border-t border-accent/20">
+            <ul class="flex flex-col px-6 py-4 space-y-4 text-sm uppercase font-medium">
+                <li><a href="index.html" class="block hover:text-accent">Home</a></li>
+                <li><a href="about.html" class="block hover:text-accent">About</a></li>
+                <li><a href="rooms.html" class="block hover:text-accent">Rooms</a></li>
+                <li><a href="facilities.html" class="block hover:text-accent">Facilities</a></li>
+                <li><a href="gallery.html" class="block hover:text-accent">Gallery</a></li>
+                <li><a href="payments.html" class="block hover:text-accent">Payments</a></li>
+                <li><a href="contact.html" class="block hover:text-accent">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow pt-16">
+        <!-- Hero Section -->
+        <section class="h-[80vh] relative flex items-center justify-center hero-campfire">
+            <!-- Fire Glow -->
+            <div class="fire-glow"></div>
+
+            <!-- Embers - CSS Only Animation -->
+            <div class="ember" style="left: 45%; width: 4px; height: 4px; animation-duration: 4s; animation-delay: 0s;"></div>
+            <div class="ember" style="left: 55%; width: 3px; height: 3px; animation-duration: 5s; animation-delay: 1s;"></div>
+            <div class="ember" style="left: 48%; width: 5px; height: 5px; animation-duration: 6s; animation-delay: 2s;"></div>
+            <div class="ember" style="left: 52%; width: 2px; height: 2px; animation-duration: 4.5s; animation-delay: 0.5s;"></div>
+            <div class="ember" style="left: 50%; width: 4px; height: 4px; animation-duration: 5.5s; animation-delay: 3s;"></div>
+            <div class="ember" style="left: 42%; width: 3px; height: 3px; animation-duration: 7s; animation-delay: 1.5s;"></div>
+            <div class="ember" style="left: 58%; width: 5px; height: 5px; animation-duration: 4.2s; animation-delay: 2.5s;"></div>
+            <div class="ember" style="left: 47%; width: 2px; height: 2px; animation-duration: 6.5s; animation-delay: 0.8s;"></div>
+            <div class="ember" style="left: 53%; width: 4px; height: 4px; animation-duration: 5.2s; animation-delay: 3.5s;"></div>
+            <div class="ember" style="left: 40%; width: 3px; height: 3px; animation-duration: 7.5s; animation-delay: 1.2s;"></div>
+            <div class="ember" style="left: 60%; width: 6px; height: 6px; animation-duration: 4.8s; animation-delay: 2.8s;"></div>
+            <div class="ember" style="left: 46%; width: 2px; height: 2px; animation-duration: 6.2s; animation-delay: 4s;"></div>
+            <div class="ember" style="left: 54%; width: 4px; height: 4px; animation-duration: 5.8s; animation-delay: 1.8s;"></div>
+            <div class="ember" style="left: 49%; width: 3px; height: 3px; animation-duration: 6.8s; animation-delay: 3.2s;"></div>
+            <div class="ember" style="left: 51%; width: 5px; height: 5px; animation-duration: 4.6s; animation-delay: 0.2s;"></div>
+
+            <!-- Pine Trees Silhouette (SVG) -->
+            <div class="absolute bottom-0 left-0 w-full z-10 pointer-events-none text-[#0d1f1a]">
+                <svg viewBox="0 0 1440 320" preserveAspectRatio="none" class="w-full h-auto opacity-90">
+                    <path fill="currentColor" fill-opacity="1" d="M0,288L48,272C96,256,192,224,288,213.3C384,203,480,213,576,229.3C672,245,768,267,864,250.7C960,235,1056,181,1152,165.3C1248,149,1344,171,1392,181.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+                    <!-- Simple Trees layered on top of the wave -->
+                    <path fill="currentColor" d="M100,320 L150,150 L200,320 Z M300,320 L360,100 L420,320 Z M600,320 L660,120 L720,320 Z M900,320 L980,80 L1060,320 Z M1200,320 L1250,140 L1300,320 Z" opacity="0.6"></path>
+                    <path fill="currentColor" d="M50,320 L80,200 L110,320 Z M250,320 L290,180 L330,320 Z M550,320 L600,160 L650,320 Z M850,320 L900,140 L950,320 Z M1150,320 L1190,190 L1230,320 Z" opacity="0.8"></path>
+                </svg>
+            </div>
+
+            <div class="text-center text-white relative z-10 px-6">
+                <p class="text-accent uppercase tracking-widest mb-4 font-medium animate-fade-up">Welcome to Paradise</p>
+                <h1 class="font-serif text-5xl md:text-7xl font-bold mb-6 leading-tight animate-fade-up delay-200">
+                    Experience Nature's <br> <span class="italic text-accent">Luxury</span>
+                </h1>
+                <p class="text-lg md:text-xl opacity-90 mb-10 max-w-2xl mx-auto animate-fade-up delay-500">
+                    Discover a sanctuary where forest whispers meeting modern comfort.
+                </p>
+                <a href="#rooms" class="inline-block border border-white px-8 py-3 rounded-full hover:bg-white hover:text-primary transition duration-300 uppercase text-sm tracking-wide animate-fade-up delay-800">
+                    Explore Suites
+                </a>
+            </div>
+        </section>
+
+        <!-- Intro Section -->
+        <section class="py-20 bg-secondary">
+            <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Resort Pathway" class="rounded-lg shadow-xl w-full object-cover h-[500px]">
+                    <div class="absolute -bottom-6 -right-6 bg-white p-6 shadow-lg rounded-lg max-w-xs hidden md:block">
+                        <p class="font-serif text-xl italic text-primary">"A hidden gem in the heart of the woods."</p>
+                    </div>
+                </div>
+                <div>
+                    <span class="text-accent uppercase font-bold tracking-widest text-sm">Our Story</span>
+                    <h2 class="font-serif text-4xl font-bold text-primary mt-2 mb-6">Serenity in Every Breath</h2>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        Garden Woods Resort was born from a desire to reconnect with nature without compromising on luxury. Nestled amidst ancient trees and flowing streams, our architecture blends seamlessly with the landscape.
+                    </p>
+                    <p class="text-gray-600 leading-relaxed mb-8">
+                        Whether you seek a quiet retreat to meditate, a romantic getaway, or a base for forest adventures, Garden Woods offers an experience that rejuvenates the soul.
+                    </p>
+                    <a href="facilities.html" class="text-primary font-bold hover:text-accent transition">Discover Our Facilities &rarr;</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Room Highlights -->
+        <section id="rooms" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <span class="text-accent uppercase font-bold tracking-widest text-sm">Accommodations</span>
+                    <h2 class="font-serif text-4xl font-bold text-primary mt-2">Stay in Nature's Lap</h2>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Room 1 -->
+                    <div class="group cursor-pointer">
+                        <div class="overflow-hidden rounded-t-lg">
+                            <img src="https://images.unsplash.com/photo-1590490360182-c87219aca27d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Forest Cabin" class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500">
+                        </div>
+                        <div class="border border-t-0 rounded-b-lg p-6 hover:shadow-lg transition bg-secondary">
+                            <h3 class="font-serif text-2xl font-bold text-primary mb-2">Forest Cabin</h3>
+                            <p class="text-gray-600 text-sm mb-4">Cozy wooden interiors with a private balcony facing the woods.</p>
+                            <div class="flex justify-between items-center text-accent font-medium">
+                                <span>₹12,450 / Night</span>
+                                <a href="rooms.html" class="group-hover:translate-x-1 transition">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Room 2 -->
+                    <div class="group cursor-pointer">
+                        <div class="overflow-hidden rounded-t-lg">
+                            <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Luxury Suite" class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500">
+                        </div>
+                        <div class="border border-t-0 rounded-b-lg p-6 hover:shadow-lg transition bg-secondary">
+                            <h3 class="font-serif text-2xl font-bold text-primary mb-2">Luxury Suite</h3>
+                            <p class="text-gray-600 text-sm mb-4">Spacious living area, jacuzzi, and panoramic forest views.</p>
+                            <div class="flex justify-between items-center text-accent font-medium">
+                                <span>₹20,750 / Night</span>
+                                <a href="rooms.html" class="group-hover:translate-x-1 transition">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Room 3 -->
+                    <div class="group cursor-pointer">
+                        <div class="overflow-hidden rounded-t-lg">
+                            <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Treehouse" class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500">
+                        </div>
+                        <div class="border border-t-0 rounded-b-lg p-6 hover:shadow-lg transition bg-secondary">
+                            <h3 class="font-serif text-2xl font-bold text-primary mb-2">The Treehouse</h3>
+                            <p class="text-gray-600 text-sm mb-4">Elevated living among the canopy for a truly unique experience.</p>
+                            <div class="flex justify-between items-center text-accent font-medium">
+                                <span>₹29,050 / Night</span>
+                                <a href="rooms.html" class="group-hover:translate-x-1 transition">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-12">
+                     <a href="rooms.html" class="btn-primary inline-block bg-primary text-white px-8 py-3 rounded-full hover:bg-dark transition">View All Rooms</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Facilities Preview -->
+        <section class="py-20 bg-secondary text-primary">
+            <div class="container mx-auto px-6">
+                 <div class="grid md:grid-cols-2 gap-16 items-center">
+                     <div>
+                         <span class="text-accent uppercase font-bold tracking-widest text-sm">Amenities</span>
+                         <h2 class="font-serif text-4xl font-bold mt-2 mb-6">Unwind & Rejuvenate</h2>
+                         <ul class="space-y-4 text-lg">
+                             <li class="flex items-center gap-3">
+                                 <i class="fas fa-leaf text-accent text-sm"></i> <span>Organic Fine Dining</span>
+                             </li>
+                             <li class="flex items-center gap-3">
+                                 <i class="fas fa-leaf text-accent text-sm"></i> <span>Guided Nature Trails</span>
+                             </li>
+                         </ul>
+                         <a href="facilities.html" class="inline-block mt-8 border-b-2 border-primary pb-1 hover:text-accent hover:border-accent transition">More Amenities</a>
+                     </div>
+                     <div class="mt-8">
+                         <img src="https://images.unsplash.com/photo-1515362778563-6a8d0e44bc0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Dining" class="rounded-lg shadow-md w-full object-cover h-80">
+                     </div>
+                 </div>
+            </div>
+        </section>
+
+        <!-- Gallery Preview (Carousel Placeholder) -->
+        <section class="py-20 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                 <h2 class="font-serif text-4xl font-bold text-primary mb-10">Captured Moments</h2>
+                 <div class="flex overflow-x-auto gap-4 pb-8 snap-x">
+                     <img src="https://images.unsplash.com/photo-1506501139174-099022df5260?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-80 h-96 object-cover rounded-lg flex-shrink-0 snap-center shadow-md">
+                     <img src="https://images.unsplash.com/photo-1596178065887-1198b6148b2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-80 h-96 object-cover rounded-lg flex-shrink-0 snap-center shadow-md">
+                     <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-80 h-96 object-cover rounded-lg flex-shrink-0 snap-center shadow-md">
+                     <img src="https://images.unsplash.com/photo-1571896349842-68c894912000?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-80 h-96 object-cover rounded-lg flex-shrink-0 snap-center shadow-md">
+                 </div>
+                 <a href="gallery.html" class="mt-8 inline-block text-primary font-bold hover:tracking-wide transition-all">View Full Gallery</a>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="relative py-24 overflow-hidden flex items-center justify-center">
+            <!-- Animated Background Image -->
+            <div class="absolute inset-0 z-0">
+                <img src="https://images.unsplash.com/photo-1585320806286-353d719543be?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Garden Background" class="w-full h-full object-cover animate-slow-zoom">
+                <!-- Gradient Overlay for Readability -->
+                <div class="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/70 mix-blend-multiply"></div>
+                <div class="absolute inset-0 bg-black/30"></div>
+            </div>
+
+            <div class="container mx-auto px-6 text-center relative z-10">
+                <span class="inline-block py-2 px-6 rounded-full bg-white/20 text-white text-xs font-bold tracking-[0.2em] uppercase mb-6 animate-fade-up backdrop-blur-md border border-white/10 shadow-lg">
+                    Ready for your escape?
+                </span>
+                <h2 class="font-serif text-4xl md:text-6xl font-medium mb-10 leading-tight text-white animate-fade-up delay-200 drop-shadow-lg">
+                    Book your unforgettable stay at <br>
+                    <span class="text-accent italic font-bold">Garden Woods</span> today.
+                </h2>
+                <div class="flex justify-center animate-fade-up delay-500">
+                    <a href="contact.html" class="group relative px-8 py-4 bg-accent text-white font-bold rounded-full overflow-hidden shadow-2xl transition hover:scale-105 hover:shadow-accent/50">
+                        <span class="relative z-10 flex items-center gap-2">
+                            Enquiry / Book Now 
+                            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </span>
+                        <div class="absolute inset-0 bg-yellow-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></div>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating Social Buttons -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-4">
+        <!-- Instagram -->
+        <a href="https://instagram.com" target="_blank" class="bg-pink-600 text-white p-3 rounded-full shadow-lg hover:bg-pink-700 transition transform hover:scale-110 flex items-center justify-center" aria-label="Instagram">
+             <i class="fab fa-instagram text-2xl"></i>
+        </a>
+        <!-- Telegram -->
+        <a href="https://t.me/" target="_blank" class="bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 transition transform hover:scale-110 flex items-center justify-center" aria-label="Telegram">
+             <i class="fab fa-telegram text-2xl"></i>
+        </a>
+        <!-- WhatsApp -->
+        <a href="https://wa.me/1234567890" target="_blank" class="bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition transform hover:scale-110 flex items-center justify-center" aria-label="Chat with us">
+             <i class="fab fa-whatsapp text-3xl"></i>
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-deep-forest text-white pt-16 pb-8">
+        <div class="container mx-auto px-6 grid md:grid-cols-3 gap-12 mb-12">
+            <div>
+                <a href="#" class="font-serif text-2xl font-bold tracking-widest text-accent mb-6 inline-block">GARDEN WOODS</a>
+                <p class="opacity-80 leading-relaxed">
+                    A luxury resort dedicated to providing an immersive nature experience. 
+                    Relax, explore, and find your peace in the woods.
+                </p>
+            </div>
+            <div>
+                <h4 class="text-accent uppercase font-bold tracking-widest text-sm mb-6">Quick Links</h4>
+                <ul class="space-y-3 opacity-90">
+                     <li><a href="index.html" class="hover:text-accent transition">Home</a></li>
+                     <li><a href="rooms.html" class="hover:text-accent transition">Rooms</a></li>
+                     <li><a href="facilities.html" class="hover:text-accent transition">Facilities</a></li>
+                     <li><a href="contact.html" class="hover:text-accent transition">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                 <h4 class="text-accent uppercase font-bold tracking-widest text-sm mb-6">Contact Us</h4>
+                 <p class="opacity-80 mb-2">123 Forest Path, Green Valley</p>
+                 <p class="opacity-80 mb-2">+91 98765 43210</p>
+                 <p class="opacity-80">info@gardenwoods.com</p>
+            </div>
+        </div>
+        <div class="container mx-auto px-6 border-t border-accent/20 pt-8">
+            <div class="flex flex-col md:flex-row justify-between items-center text-xs opacity-80">
+                <p>&copy; 2025 Garden Woods Resort. All rights reserved.</p>
+                <p>Powered by Mind Kraft Technologies</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

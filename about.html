@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Garden Woods Resort</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2F5D50', // Forest Green
+                        secondary: '#F5F0E6', // Sand Beige
+                        accent: '#C8A951', // Gold / Warm Brown
+                        dark: '#333333', // Dark Charcoal
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    animation: {
+                        'fade-up': 'fadeInUp 1s ease-out forwards',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Ambient Animation from Index */
+        @keyframes breathe {
+            0%, 100% { background-color: #F5F0E6; }
+            50% { background-color: #EFE6D5; }
+        }
+        .animate-breathe {
+            animation: breathe 10s ease-in-out infinite;
+        }
+
+        /* Footer Animation */
+        .bg-deep-forest {
+            background: linear-gradient(-45deg, #2F5D50, #333333, #2F5D50, #453a23);
+            background-size: 400% 400%;
+            animation: gradientMove 15s ease infinite;
+        }
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Fade Up Utility */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-up {
+            opacity: 0;
+            animation: fadeInUp 1.2s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased flex flex-col min-h-screen animate-breathe text-dark">
+
+    <!-- Ambient Interactive Background -->
+    <div id="ambient-background" class="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
+        <div id="cursor-glow" class="absolute w-[800px] h-[800px] bg-primary/10 rounded-full blur-[120px] transition-transform duration-100 ease-out -translate-x-1/2 -translate-y-1/2 will-change-transform top-0 left-0 hidden md:block"></div>
+        <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/5 rounded-full blur-[150px] animate-pulse"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[60%] bg-accent/5 rounded-full blur-[120px] animate-pulse delay-1000"></div>
+    </div>
+
+    <!-- Navbar -->
+    <header class="bg-primary text-secondary shadow-md fixed w-full top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="font-serif text-2xl font-bold tracking-widest text-accent">GARDEN WOODS</a>
+            <button id="mobile-menu-btn" class="md:hidden focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+            <!-- Desktop Menu -->
+            <ul class="hidden md:flex space-x-8 text-sm uppercase tracking-wide font-medium">
+                <li><a href="index.html" class="hover:text-accent transition duration-300">Home</a></li>
+                <li><a href="about.html" class="text-accent transition duration-300">About</a></li>
+                <li><a href="rooms.html" class="hover:text-accent transition duration-300">Rooms</a></li>
+                <li><a href="facilities.html" class="hover:text-accent transition duration-300">Facilities</a></li>
+                <li><a href="gallery.html" class="hover:text-accent transition duration-300">Gallery</a></li>
+                <li><a href="payments.html" class="hover:text-accent transition duration-300">Payments</a></li>
+                <li><a href="contact.html" class="hover:text-accent transition duration-300">Contact</a></li>
+            </ul>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden bg-primary border-t border-accent/20">
+            <ul class="flex flex-col px-6 py-4 space-y-4 text-sm uppercase font-medium">
+                <li><a href="index.html" class="block hover:text-accent">Home</a></li>
+                <li><a href="about.html" class="block hover:text-accent">About</a></li>
+                <li><a href="rooms.html" class="block hover:text-accent">Rooms</a></li>
+                <li><a href="facilities.html" class="block hover:text-accent">Facilities</a></li>
+                <li><a href="gallery.html" class="block hover:text-accent">Gallery</a></li>
+                <li><a href="payments.html" class="block hover:text-accent">Payments</a></li>
+                <li><a href="contact.html" class="block hover:text-accent">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow pt-24 pb-20">
+        <section class="container mx-auto px-6">
+            <div class="text-center mb-16 animate-fade-up">
+                <span class="text-accent uppercase font-bold tracking-widest text-sm">Discover Us</span>
+                <h1 class="font-serif text-5xl font-bold text-primary mt-4">Our Story</h1>
+                <p class="text-gray-600 max-w-2xl mx-auto mt-6 text-lg">
+                    More than just a resort, Garden Woods is a tribute to the timeless beauty of nature.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-16 items-center mb-24 animate-fade-up" style="animation-delay: 0.2s;">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Resort Architecture" class="rounded-lg shadow-xl w-full">
+                    <div class="absolute -bottom-10 -right-10 w-48 h-48 bg-accent/10 rounded-full blur-3xl z-[-1]"></div>
+                </div>
+                <div>
+                    <h3 class="font-serif text-3xl font-bold text-primary mb-6">Harmonious Living</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        Established in 2020, Garden Woods began with a simple philosophy: to build a sanctuary that breathes with the forest, not against it. Our architecture minimizes impact, using sustainable materials and elevated structures to preserve the forest floor.
+                    </p>
+                    <p class="text-gray-600 leading-relaxed">
+                        We believe that true luxury lies in silence, fresh air, and the gentle rustle of leaves. Every corner of our resort is designed to help you disconnect from the noise and reconnect with yourself.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white p-12 rounded-lg shadow-lg text-center animate-fade-up" style="animation-delay: 0.4s;">
+                <h3 class="font-serif text-3xl font-bold text-primary mb-8">Why Choose Us?</h3>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div>
+                        <div class="text-accent text-4xl mb-4"><i class="fas fa-tree"></i></div>
+                        <h4 class="font-bold text-lg mb-2">Eco-Conscious</h4>
+                        <p class="text-sm text-gray-500">100% renewable energy and zero-plastic policy.</p>
+                    </div>
+                    <div>
+                        <div class="text-accent text-4xl mb-4"><i class="fas fa-spa"></i></div>
+                        <h4 class="font-bold text-lg mb-2">Holistic Wellness</h4>
+                        <p class="text-sm text-gray-500">Ancient Ayurvedic treatments and modern spa therapies.</p>
+                    </div>
+                    <div>
+                        <div class="text-accent text-4xl mb-4"><i class="fas fa-utensils"></i></div>
+                        <h4 class="font-bold text-lg mb-2">Farm-to-Table</h4>
+                        <p class="text-sm text-gray-500">Organic produce sourced directly from local farmers.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating Social Buttons -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-4">
+        <a href="https://instagram.com" target="_blank" class="bg-pink-600 text-white p-3 rounded-full shadow-lg hover:bg-pink-700 transition transform hover:scale-110 flex items-center justify-center">
+             <i class="fab fa-instagram text-2xl"></i>
+        </a>
+        <a href="https://t.me/" target="_blank" class="bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 transition transform hover:scale-110 flex items-center justify-center">
+             <i class="fab fa-telegram text-2xl"></i>
+        </a>
+        <a href="https://wa.me/1234567890" target="_blank" class="bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition transform hover:scale-110 flex items-center justify-center">
+             <i class="fab fa-whatsapp text-3xl"></i>
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-deep-forest text-white pt-16 pb-8">
+        <div class="container mx-auto px-6 grid md:grid-cols-3 gap-12 mb-12">
+            <div>
+                <a href="#" class="font-serif text-2xl font-bold tracking-widest text-accent mb-6 inline-block">GARDEN WOODS</a>
+                <p class="opacity-80 leading-relaxed">
+                    A luxury resort dedicated to providing an immersive nature experience.
+                </p>
+            </div>
+            <div>
+                <h4 class="text-accent uppercase font-bold tracking-widest text-sm mb-6">Quick Links</h4>
+                <ul class="space-y-3 opacity-90">
+                     <li><a href="index.html" class="hover:text-accent transition">Home</a></li>
+                     <li><a href="rooms.html" class="hover:text-accent transition">Rooms</a></li>
+                     <li><a href="about.html" class="hover:text-accent transition">About</a></li>
+                     <li><a href="contact.html" class="hover:text-accent transition">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                 <h4 class="text-accent uppercase font-bold tracking-widest text-sm mb-6">Contact Us</h4>
+                 <p class="opacity-80 mb-2">123 Forest Path, Green Valley</p>
+                 <p class="opacity-80 mb-2">+91 98765 43210</p>
+                 <p class="opacity-80">info@gardenwoods.com</p>
+            </div>
+        </div>
+        <div class="container mx-auto px-6 border-t border-accent/20 pt-8">
+            <div class="flex flex-col md:flex-row justify-between items-center text-xs opacity-80">
+                <p>&copy; 2025 Garden Woods Resort. All rights reserved.</p>
+                <p>Powered by Mind Kraft Technologies</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

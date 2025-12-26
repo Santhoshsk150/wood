@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Garden Woods</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2F5D50',
+                        secondary: '#F5F0E6',
+                        accent: '#C8A951',
+                        dark: '#333333',
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #F5F0E6; color: #333333; }
+        @keyframes breathe { 0%, 100% { background-color: #F5F0E6; } 50% { background-color: #EFE6D5; } }
+        .animate-breathe { animation: breathe 10s ease-in-out infinite; }
+        .bg-deep-forest { background: linear-gradient(-45deg, #2F5D50, #333333, #2F5D50, #453a23); background-size: 400% 400%; animation: gradientMove 15s ease infinite; }
+        @keyframes gradientMove { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    </style>
+</head>
+<body class="font-sans antialiased flex flex-col min-h-screen animate-breathe">
+    <!-- Navbar -->
+    <header class="bg-primary text-secondary shadow-md fixed w-full top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="font-serif text-2xl font-bold tracking-widest text-accent">GARDEN WOODS</a>
+            <button id="mobile-menu-btn" class="md:hidden focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+            <ul class="hidden md:flex space-x-8 text-sm uppercase tracking-wide font-medium">
+                <li><a href="index.html" class="hover:text-accent transition duration-300">Home</a></li>
+                <li><a href="about.html" class="hover:text-accent transition duration-300">About</a></li>
+                <li><a href="rooms.html" class="hover:text-accent transition duration-300">Rooms</a></li>
+                <li><a href="facilities.html" class="hover:text-accent transition duration-300">Facilities</a></li>
+                <li><a href="gallery.html" class="text-accent transition duration-300">Gallery</a></li> <!-- Active State -->
+                <li><a href="payments.html" class="hover:text-accent transition duration-300">Payments</a></li>
+                <li><a href="contact.html" class="hover:text-accent transition duration-300">Contact</a></li>
+            </ul>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden bg-primary border-t border-accent/20">
+             <ul class="flex flex-col px-6 py-4 space-y-4 text-sm uppercase font-medium">
+                <li><a href="index.html" class="block hover:text-accent">Home</a></li>
+                <li><a href="about.html" class="block hover:text-accent">About</a></li>
+                <li><a href="rooms.html" class="block hover:text-accent">Rooms</a></li>
+                <li><a href="facilities.html" class="block hover:text-accent">Facilities</a></li>
+                <li><a href="gallery.html" class="block hover:text-accent">Gallery</a></li>
+                <li><a href="payments.html" class="block hover:text-accent">Payments</a></li>
+                <li><a href="contact.html" class="block hover:text-accent">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="flex-grow pt-24 pb-12">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-10">
+                <h1 class="font-serif text-4xl md:text-5xl text-primary font-bold mb-4">Our Gallery</h1>
+                <p class="text-lg opacity-80 max-w-2xl mx-auto">A glimpse into the beauty that awaits you.</p>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button class="filter-btn bg-accent text-white px-6 py-2 rounded-full font-medium transition hover:shadow-lg focus:outline-none" data-filter="all">All</button>
+                <button class="filter-btn bg-white text-primary px-6 py-2 rounded-full font-medium transition hover:bg-accent hover:text-white hover:shadow-lg focus:outline-none" data-filter="rooms">Rooms</button>
+                <button class="filter-btn bg-white text-primary px-6 py-2 rounded-full font-medium transition hover:bg-accent hover:text-white hover:shadow-lg focus:outline-none" data-filter="garden">Garden</button>
+                <button class="filter-btn bg-white text-primary px-6 py-2 rounded-full font-medium transition hover:bg-accent hover:text-white hover:shadow-lg focus:outline-none" data-filter="food">Food</button>
+                <button class="filter-btn bg-white text-primary px-6 py-2 rounded-full font-medium transition hover:bg-accent hover:text-white hover:shadow-lg focus:outline-none" data-filter="events">Events</button>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Room Images -->
+                <div class="gallery-item cursor-pointer group rounded-xl overflow-hidden shadow-md" data-category="rooms">
+                    <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Room" class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500">
+                </div>
+                <div class="gallery-item cursor-pointer group rounded-xl overflow-hidden shadow-md" data-category="rooms">
+                    <img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Room" class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500">
+                </div>
+                
+                <!-- Garden Images -->
+                <div class="gallery-item cursor-pointer group rounded-xl overflow-hidden shadow-md" data-category="garden">
+                    <img src="https://images.unsplash.com/photo-1585320806286-353d719543be?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Garden" class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500">
+                </div>
+                <div class="gallery-item cursor-pointer group rounded-xl overflow-hidden shadow-md" data-category="garden">
+                    <img src="https://images.unsplash.com/photo-1558036117-15d82a90b9b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Nature" class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500">
+                </div>
+
+                <!-- Food Images -->
+                <div class="gallery-item cursor-pointer group rounded-xl overflow-hidden shadow-md" data-category="food">
+                    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Dining" class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500">
+                </div>
+                <div class="gallery-item cursor-pointer group rounded-xl overflow-hidden shadow-md" data-category="food">
+                    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Menu" class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500">
+                </div>
+
+                <!-- Events Images -->
+                <div class="gallery-item cursor-pointer group rounded-xl overflow-hidden shadow-md" data-category="events">
+                   <img src="https://images.unsplash.com/photo-1519750783826-e2420f4d687f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Event" class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="hidden fixed inset-0 z-[60] bg-black/90 flex items-center justify-center p-4">
+        <button id="lightbox-close" class="absolute top-6 right-6 text-white text-4xl hover:text-accent">&times;</button>
+        <img id="lightbox-img" src="" class="max-w-full max-h-[90vh] rounded-lg shadow-2xl">
+    </div>
+
+    <!-- Floating Social Buttons -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-4">
+        <!-- Instagram -->
+        <a href="https://instagram.com" target="_blank" class="bg-pink-600 text-white p-3 rounded-full shadow-lg hover:bg-pink-700 transition transform hover:scale-110 flex items-center justify-center" aria-label="Instagram">
+             <i class="fab fa-instagram text-2xl"></i>
+        </a>
+        <!-- Telegram -->
+        <a href="https://t.me/" target="_blank" class="bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 transition transform hover:scale-110 flex items-center justify-center" aria-label="Telegram">
+             <i class="fab fa-telegram text-2xl"></i>
+        </a>
+        <!-- WhatsApp -->
+        <a href="https://wa.me/1234567890" target="_blank" class="bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition transform hover:scale-110 flex items-center justify-center" aria-label="Chat with us">
+             <i class="fab fa-whatsapp text-3xl"></i>
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-deep-forest text-secondary py-12 border-t-4 border-accent">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 Garden Woods Resort. All rights reserved.</p>
+            <p class="mt-2 text-xs opacity-60">Powered by Mind Kraft Technologies</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/gallery.js"></script>
+</body>
+</html>

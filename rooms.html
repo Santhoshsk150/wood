@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rooms & Cottages - Garden Woods</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2F5D50',
+                        secondary: '#F5F0E6',
+                        accent: '#C8A951',
+                        dark: '#333333',
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #F5F0E6; color: #333333; }
+        /* Calm Breathe */
+        @keyframes breathe {
+            0%, 100% { background-color: #F5F0E6; }
+            50% { background-color: #EFE6D5; }
+        }
+        .animate-breathe {
+            animation: breathe 10s ease-in-out infinite;
+        }
+        /* Deep Forest */
+        .bg-deep-forest {
+            background: linear-gradient(-45deg, #2F5D50, #333333, #2F5D50, #453a23);
+            background-size: 400% 400%;
+            animation: gradientMove 15s ease infinite;
+        }
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body class="font-sans antialiased flex flex-col min-h-screen animate-breathe">
+    <!-- Navbar (Ideally this should be a component, but copying for static build) -->
+    <header class="bg-primary text-secondary shadow-md fixed w-full top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="font-serif text-2xl font-bold tracking-widest text-accent">GARDEN WOODS</a>
+            <button id="mobile-menu-btn" class="md:hidden focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+            <ul class="hidden md:flex space-x-8 text-sm uppercase tracking-wide font-medium">
+                <li><a href="index.html" class="hover:text-accent transition duration-300">Home</a></li>
+                <li><a href="about.html" class="hover:text-accent transition duration-300">About</a></li>
+                <li><a href="rooms.html" class="text-accent transition duration-300">Rooms</a></li> <!-- Active State -->
+                <li><a href="facilities.html" class="hover:text-accent transition duration-300">Facilities</a></li>
+                <li><a href="gallery.html" class="hover:text-accent transition duration-300">Gallery</a></li>
+                <li><a href="payments.html" class="hover:text-accent transition duration-300">Payments</a></li>
+                <li><a href="contact.html" class="hover:text-accent transition duration-300">Contact</a></li>
+            </ul>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden bg-primary border-t border-accent/20">
+            <ul class="flex flex-col px-6 py-4 space-y-4 text-sm uppercase font-medium">
+                <li><a href="index.html" class="block hover:text-accent">Home</a></li>
+                <li><a href="about.html" class="block hover:text-accent">About</a></li>
+                <li><a href="rooms.html" class="block hover:text-accent">Rooms</a></li>
+                <li><a href="facilities.html" class="block hover:text-accent">Facilities</a></li>
+                <li><a href="gallery.html" class="block hover:text-accent">Gallery</a></li>
+                <li><a href="payments.html" class="block hover:text-accent">Payments</a></li>
+                <li><a href="contact.html" class="block hover:text-accent">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="flex-grow pt-24 pb-12">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h1 class="font-serif text-4xl md:text-5xl text-primary font-bold mb-4">Our Rooms & Cottages</h1>
+                <p class="text-lg opacity-80 max-w-2xl mx-auto">Discover the perfect space for your stay.</p>
+            </div>
+
+            <div class="space-y-16">
+                <!-- Room Card 1 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-xl flex flex-col md:flex-row">
+                    <!-- Image Slider Left -->
+                    <div class="md:w-1/2 relative h-64 md:h-auto group">
+                        <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
+                        <!-- Navigation Arrows Placeholder (Visual only for now) -->
+                        <div class="absolute inset-0 flex justify-between items-center px-4 opacity-0 group-hover:opacity-100 transition duration-300">
+                             <button class="bg-black/30 text-white p-2 rounded-full hover:bg-black/50">&larr;</button>
+                             <button class="bg-black/30 text-white p-2 rounded-full hover:bg-black/50">&rarr;</button>
+                        </div>
+                    </div>
+                    <!-- Content Right -->
+                    <div class="md:w-1/2 p-10 flex flex-col justify-center">
+                        <h2 class="font-serif text-3xl font-bold text-primary mb-2">Luxury Cottage</h2>
+                        <span class="text-accent font-bold text-xl mb-4 block">₹20,000 / night</span>
+                        <p class="text-gray-600 mb-6 leading-relaxed">Experience privacy and comfort in our standalone cottages. Surrounded by lush greenery, these cottages feature private balconies, king-sized beds, and modern amenities.</p>
+                        
+                        <h3 class="font-bold text-sm uppercase tracking-wide text-gray-500 mb-4">Amenities</h3>
+                        <div class="flex flex-wrap gap-3 mb-8">
+                             <span class="bg-secondary text-primary px-3 py-1 rounded-full text-xs font-semibold">King Bed</span>
+                             <span class="bg-secondary text-primary px-3 py-1 rounded-full text-xs font-semibold">Private Balcony</span>
+                             <span class="bg-secondary text-primary px-3 py-1 rounded-full text-xs font-semibold">Free WiFi</span>
+                             <span class="bg-secondary text-primary px-3 py-1 rounded-full text-xs font-semibold">AC</span>
+                        </div>
+                        
+                        <a href="contact.html" class="bg-primary text-secondary text-center py-3 rounded-lg font-bold uppercase hover:bg-accent hover:text-white transition duration-300">Enquire Now</a>
+                    </div>
+                </div>
+
+                <!-- Room Card 2 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-xl flex flex-col md:flex-row-reverse">
+                    <!-- Image Slider Right -->
+                    <div class="md:w-1/2 relative h-64 md:h-auto group">
+                        <img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
+                    </div>
+                    <!-- Content Left -->
+                    <div class="md:w-1/2 p-10 flex flex-col justify-center">
+                        <h2 class="font-serif text-3xl font-bold text-primary mb-2">Garden View Suite</h2>
+                        <span class="text-accent font-bold text-xl mb-4 block">₹14,500 / night</span>
+                        <p class="text-gray-600 mb-6 leading-relaxed">Wake up to the sound of birds and the fresh scent of the garden. Our Garden View Suites offer direct access to nature trails and a cozy sit-out area.</p>
+                        
+                         <h3 class="font-bold text-sm uppercase tracking-wide text-gray-500 mb-4">Amenities</h3>
+                        <div class="flex flex-wrap gap-3 mb-8">
+                             <span class="bg-secondary text-primary px-3 py-1 rounded-full text-xs font-semibold">Queen Bed</span>
+                             <span class="bg-secondary text-primary px-3 py-1 rounded-full text-xs font-semibold">Garden View</span>
+                             <span class="bg-secondary text-primary px-3 py-1 rounded-full text-xs font-semibold">Work Desk</span>
+                        </div>
+                        
+                        <a href="contact.html" class="bg-primary text-secondary text-center py-3 rounded-lg font-bold uppercase hover:bg-accent hover:text-white transition duration-300">Enquire Now</a>
+                    </div>
+                </div>
+                
+                 <!-- Room Card 3 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-xl flex flex-col md:flex-row">
+                    <!-- Image Slider Left -->
+                    <div class="md:w-1/2 relative h-64 md:h-auto group">
+                        <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
+                    </div>
+                    <!-- Content Right -->
+                    <div class="md:w-1/2 p-10 flex flex-col justify-center">
+                        <h2 class="font-serif text-3xl font-bold text-primary mb-2">Family Villa</h2>
+                        <span class="text-accent font-bold text-xl mb-4 block">₹28,000 / night</span>
+                        <p class="text-gray-600 mb-6 leading-relaxed">A home away from home. Our Family Villa includes two bedrooms, a living hall, and a kitchenette, making it perfect for longer stays.</p>
+                        
+                         <h3 class="font-bold text-sm uppercase tracking-wide text-gray-500 mb-4">Amenities</h3>
+                        <div class="flex flex-wrap gap-3 mb-8">
+                             <span class="bg-secondary text-primary px-3 py-1 rounded-full text-xs font-semibold">2 Bedrooms</span>
+                             <span class="bg-secondary text-primary px-3 py-1 rounded-full text-xs font-semibold">Kitchenette</span>
+                             <span class="bg-secondary text-primary px-3 py-1 rounded-full text-xs font-semibold">Living Area</span>
+                        </div>
+                        
+                        <a href="contact.html" class="bg-primary text-secondary text-center py-3 rounded-lg font-bold uppercase hover:bg-accent hover:text-white transition duration-300">Enquire Now</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+    
+    <!-- Floating Social Buttons -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-4">
+        <!-- Instagram -->
+        <a href="https://instagram.com" target="_blank" class="bg-pink-600 text-white p-3 rounded-full shadow-lg hover:bg-pink-700 transition transform hover:scale-110 flex items-center justify-center" aria-label="Instagram">
+             <i class="fab fa-instagram text-2xl"></i>
+        </a>
+        <!-- Telegram -->
+        <a href="https://t.me/" target="_blank" class="bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 transition transform hover:scale-110 flex items-center justify-center" aria-label="Telegram">
+             <i class="fab fa-telegram text-2xl"></i>
+        </a>
+        <!-- WhatsApp -->
+        <a href="https://wa.me/1234567890" target="_blank" class="bg-green-500 text-white p-3 rounded-full shadow-lg hover:bg-green-600 transition transform hover:scale-110 flex items-center justify-center" aria-label="Chat with us">
+             <i class="fab fa-whatsapp text-3xl"></i>
+        </a>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="bg-deep-forest text-secondary py-12 border-t-4 border-accent">
+        <div class="container mx-auto px-6 border-t border-accent/20 pt-8">
+            <div class="flex flex-col md:flex-row justify-between items-center text-xs opacity-80">
+                <p>&copy; 2025 Garden Woods Resort. All rights reserved.</p>
+                
+                
+                <p>Powered by Mind Kraft Technologies</p>
+            </div>
+        </div>
+    </footer>
+    <script src="js/main.js"></script>
+</body>
+</html>
